@@ -23,4 +23,6 @@ public class PostDto {
     @Singular
     private List<CommentDto> comments;
 
+    public PostDto(Long id) {
+    }
 }

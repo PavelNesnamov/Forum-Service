@@ -4,78 +4,63 @@ import ait.cohort5860.post.dto.NewCommentDto;
 import ait.cohort5860.post.dto.NewPostDto;
 import ait.cohort5860.post.dto.PostDto;
 import ait.cohort5860.post.service.PostService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 @RestController
-@RequiredArgsConstructor("/forum")
-@RequestMapping
+@RequiredArgsConstructor
+@RequestMapping("/forum")
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping("/post/{author}")
     @ResponseStatus(HttpStatus.CREATED)
-    public PostDto addNewPost(@RequestParam String author, @RequestBody NewPostDto newPostDto) {
+    public PostDto addNewPost(@PathVariable String author, @RequestBody NewPostDto newPostDto) {
         return postService.addNewPost(author, newPostDto);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PostDto> findPostById(@PathVariable Long id) {
-        PostDto post  = postService.findPostById(id);
-        if (post != null) {
-            return ResponseEntity.ok(post);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping("/post/{id}")
+    public PostDto findPostById(@PathVariable Long id) {
+        return postService.findPostById(id);
     }
 
+    @PatchMapping("/post/{id}/like")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void addLike(Long id) {
-
+    public void addLike(@PathVariable Long id) {
+        postService.addLike(id);
     }
 
-    @PatchMapping("/{id}")
-    public ResponseEntity<PostDto> updatePost(@PathVariable Long id, @RequestBody NewPostDto newPostDto) {
-        PostDto post = postService.updatePost(id, newPostDto);
-        if (post != null) {
-            return ResponseEntity.ok(post);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PatchMapping("/post/{id}")
+    public PostDto updatePost(@PathVariable Long id, @RequestBody NewPostDto newPostDto) {
+        return postService.updatePost(id, newPostDto);
     }
 
-
-    public PostDto deletePost(Long id) {
-        return null;
+    @DeleteMapping("/post/{id}")
+    public PostDto deletePost(@PathVariable Long id) {
+        return postService.deletePost(id);
     }
 
-    @PostMapping("/{id}/comment")
-    public ResponseEntity<PostDto> addComment(@PathVariable Long id, @RequestBody NewCommentDto newCommentDto) {
-        PostDto post = postService.addComment(id, newCommentDto);
-        return post != null
-                ? ResponseEntity.ok(post)
-                : ResponseEntity.notFound().build();
+    @PatchMapping("/post/{id}/comment/{author}")
+    public PostDto addComment(@PathVariable Long id, @PathVariable String author, @RequestBody NewCommentDto newCommentDto) {
+        return postService.addComment(id, author, newCommentDto);
     }
 
-
-
-    public Iterable<PostDto> findPostsByAuthor(String author) {
-        return null;
+    @GetMapping("/posts/author/{author}")
+    public Iterable<PostDto> findPostsByAuthor(@PathVariable String author) {
+        return postService.findPostsByAuthor(author);
     }
 
-
-    public Iterable<PostDto> findPostsByTags(List<String> tag) {
-        return null;
+    @GetMapping("/posts/tags")
+    public Iterable<PostDto> findPostsByTags(@RequestParam("values") List<String> tags) {
+        return postService.findPostsByTags(tags);
     }
 
-
-    public Iterable<PostDto> findPostsByPeriod(LocalDate dateFrom, LocalDate dateTo) {
-        return null;
+    @GetMapping("/posts/period")
+    public Iterable<PostDto> findPostsByPeriod(@RequestParam("dateFrom") LocalDate from, @RequestParam("dateTo") LocalDate to) {
+        return postService.findPostsByPeriod(from, to);
     }
 }
