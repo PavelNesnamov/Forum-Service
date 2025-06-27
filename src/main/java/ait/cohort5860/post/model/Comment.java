@@ -4,22 +4,24 @@ import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "comments")
 public class Comment {
     @Id
-    @GeneratedValue(generator = "comment_id_seq")
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String username;
     private String message;
     private LocalDateTime dateCreated = LocalDateTime.now();
     private int likes;
+    @Setter
     @ManyToOne
     private Post post;
 

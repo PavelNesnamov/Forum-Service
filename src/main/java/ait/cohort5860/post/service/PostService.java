@@ -18,14 +18,11 @@ public interface PostService {
 
     PostDto deletePost(Long id);
 
-    PostDto addComment(Long id, String author, NewCommentDto newCommendDto);
+    PostDto addComment(Long id, String author, NewCommentDto newCommentDto);
 
     Iterable<PostDto> findPostsByAuthor(String author);
 
-    Iterable<PostDto> findPostsByTags(List<String> tag);
+    Iterable<PostDto> findPostsByTags(List<String> tags);
 
     Iterable<PostDto> findPostsByPeriod(LocalDate dateFrom, LocalDate dateTo);
-
-    PostDto addComment(Long postId, NewCommentDto commentDto);
-
 }

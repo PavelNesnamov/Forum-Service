@@ -8,6 +8,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Getter
 public class NewCommentDto {
-    private String author;
     private String message;
 }

@@ -1,26 +1,26 @@
 package ait.cohort5860.post.model;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 @Getter
 @NoArgsConstructor
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 @Entity
 @Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Setter
     private String title;
     @Setter
@@ -30,7 +30,7 @@ public class Post {
     private LocalDateTime dateCreated = LocalDateTime.now();
     @ManyToMany
     private Set<Tag> tags = new HashSet<>();
-    private Long likes;
+    private int likes;
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class Post {
         this.author = author;
     }
 
-    public Post(String title, String content, String author, Set<String> tags ){
+    public Post(String title, String content, String author, Set<String> tags) {
         this.title = title;
         this.content = content;
         this.author = author;
@@ -58,7 +58,4 @@ public class Post {
     public boolean addTag(Tag tag) {
         return tags.add(tag);
     }
-
-
-
 }

@@ -6,12 +6,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Builder
 public class PostDto {
-
     private Long id;
     private String title;
     private String content;
@@ -22,7 +21,4 @@ public class PostDto {
     private Integer likes;
     @Singular
     private List<CommentDto> comments;
-
-    public PostDto(Long id) {
-    }
 }
