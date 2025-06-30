@@ -1,14 +1,17 @@
-package ait.cohort5860.accaunting.dto;
+package ait.cohort5860.accounting.dto;
 
 import lombok.*;
 
-@Setter
+import java.util.Set;
+
+@Builder
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegisterDto {
+public class UserDto {
     private String login;
-    private String password;
     private String firstName;
     private String lastName;
+    @Singular
+    private Set<String> roles;
 }

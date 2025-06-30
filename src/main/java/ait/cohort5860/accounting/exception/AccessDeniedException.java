@@ -1,4 +1,4 @@
-package ait.cohort5860.accaunting.exception;
+package ait.cohort5860.accounting.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

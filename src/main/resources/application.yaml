@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: forum-service
+
+  datasource:
+    url: jdbc:postgresql://pg-3913db76-project-cohort5860.c.aivencloud.com:19714/avnadmin
+    username: avnadmin
+    password: ${AIVEN_PASS}
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  data:
+    mongodb:
+      uri: ${MONGO_URI}
